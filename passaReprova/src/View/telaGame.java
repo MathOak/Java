@@ -15,9 +15,7 @@ import java.util.Random;
  */
 public class telaGame extends javax.swing.JFrame {
     String resp;
-    int apostaMin = 1;
-    int cont;
-    int contador = 1;
+    int apostaMin = 1, contador = 1, placarAnte = 1, cont;
     equipes gru1;
     equipes gru2;
     equipes gru3;
@@ -638,6 +636,8 @@ public class telaGame extends javax.swing.JFrame {
                 cont = 4;
                 break;
             case "5g":
+                cont = 5;
+                int pontos[] = new int[cont];
                 firstGroup.setText(gru1.getNome());
                 secondGroup.setText(gru2.getNome());
                 thirdGroup.setText(gru3.getNome());
@@ -648,7 +648,7 @@ public class telaGame extends javax.swing.JFrame {
                 thirdScore.setText(""+gru3.getPontos());
                 fourthScore.setText(""+gru4.getPontos());
                 quintoScore.setText(""+gru5.getPontos());
-                cont = 5;
+                
                 break;
             default:
                 throw new AssertionError();
@@ -665,7 +665,7 @@ public class telaGame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(Integer.parseInt(aposta.getText()) < 1 || aposta.getText().equals("")){
+        if(Integer.parseInt(aposta.getText()) < apostaMin || aposta.getText().equals("")){
             aposta.setText(""+apostaMin);
         }
         if (validarEq(daVez.getText()) && validarEq(desafiado.getText())){
@@ -908,17 +908,21 @@ public class telaGame extends javax.swing.JFrame {
         int placar = Integer.parseInt(numRodada.getText());
         if (contador == cont){
             numRodada.setText(""+(placar + 1));
-            if ((placar + 1) > 1){
+            if (((placar+1) == 3|| (placar+1) == 5 || (placar+1) == 15) && checkTrocarPlacar(placar)){
+            apostaMin += 1;
+        }
+        if ((placar + 1) > 1){
             aposta.setEditable(true);
             }
             contador = 1;
         }else{
-            contador+=1;
+            contador += 1;
         }
         /*
         firstScore.setText(""+checkParticipants(daVez.getText()).getPontos());
         secondScore.setText(""+checkParticipants(desafiado.getText()).getPontos());
         */
+       // ordenarPlacar(,);
         firstScore.setText(""+gru1.getPontos());
         secondScore.setText(""+gru2.getPontos());
         thirdScore.setText(""+gru3.getPontos());
@@ -926,9 +930,44 @@ public class telaGame extends javax.swing.JFrame {
         quintoScore.setText(""+gru5.getPontos());
         daVez.setText("");
         desafiado.setText("");
-        if ((placar+1) == 5|| (placar+1) == 10 || (placar+1) == 15){
-            apostaMin += 1;
-        }
         aposta.setText(""+apostaMin);
+    }
+    /**
+    void ordenarPlacar(int [] gPontos, String []gNome , int quant){
+        //pegar quantas equipes tem pelo parametro, inserir no vetor  e ordenar, talvez retornar o vetor
+        int aux;
+        String tmp;
+        for (int i = 0; i < gPontos.length; i++){
+            for(int y = i+1; y < i; y++){
+                if(gPontos[y] > gPontos[i]){
+                    aux = gPontos[y];
+                    tmp = gNome[y];
+                    gPontos[y] = gPontos[i];
+                    gNome[y] = gNome[i];
+                    gPontos[i] = aux;
+                    gNome[i] = tmp;
+                }
+            }
+        }
+        firstScore.setText(""+gru1.getPontos());
+        secondScore.setText(""+gru2.getPontos());
+        thirdScore.setText(""+gru3.getPontos());
+        fourthScore.setText(""+gru4.getPontos());
+        quintoScore.setText(""+gru5.getPontos());
+        Corrigir o aumento de aposta minima toda vez que ele sobe
+        gru1.getPontos();
+        gru2.getPontos();
+        gru3.getPontos();
+        gru4.getPontos();
+        gru5.getPontos();
+    }*/
+    boolean checkTrocarPlacar(int placarAtual){
+        //se o placar anterior for igual ao atual, não muda, se for diferente muda,se for diferente retorna true e muda o placar anterior ´para o atual
+        //variavel global para guardar a anterior
+        if (placarAnte != placarAtual){
+            placarAnte = placarAtual;
+            return true;
+        }else
+            return false;
     }
 }
