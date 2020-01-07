@@ -605,6 +605,9 @@ public class telaGame extends javax.swing.JFrame {
                 firstScore.setText(""+gru1.getPontos());
                 secondScore.setText(""+gru2.getPontos());
                 cont = 2;
+                gru3.setNome("null");
+                gru4.setNome("null");
+                gru5.setNome("null");
                 break;
             case "3g":
                 firstGroup.setText(gru1.getNome());
@@ -620,6 +623,8 @@ public class telaGame extends javax.swing.JFrame {
                 secondScore.setText(""+gru2.getPontos());
                 thirdScore.setText(""+gru3.getPontos());
                 cont = 3;
+                gru4.setNome("null");
+                gru5.setNome("null");
                 break;
             case "4g":
                 firstGroup.setText(gru1.getNome());
@@ -634,6 +639,7 @@ public class telaGame extends javax.swing.JFrame {
                 thirdScore.setText(""+gru3.getPontos());
                 fourthScore.setText(""+gru4.getPontos());
                 cont = 4;
+                gru5.setNome("null");
                 break;
             case "5g":
                 cont = 5;
